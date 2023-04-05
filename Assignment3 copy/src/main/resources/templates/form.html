@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <title>Assignment 1</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.1/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+</head>
+
+<body>
+<div class="container">
+    <h1>Clothing Warehouse</h1>
+    <form method="post" th:object="${clothing}" class="form-horizontal">
+        <div class="form-group">
+            <h3>Choose clothing:</h3>
+
+            <div class="brand-input">
+                <label for="name">Name: </label>
+                <div>
+                    <input type="text" th:field="*{name}" name="name" placeholder="Name" class="form-control"
+                           id="name"/>
+                </div>
+            </div>
+
+            <div class="brand-box">
+                <h3>Pick a brand:</h3>
+                <div th:each="brand : ${brands}">
+                    <input type="checkbox" th:field="*{brandFrom}" th:value="${brand}"/>
+                    <span th:text="${brand}">Brand</span><br/>
+                </div>
+            </div>
+
+            <div class="brand-input">
+                <label for="year1">Year: </label>
+                <div>
+                    <input type="text" th:field="*{year1}" name="year1" placeholder="Year" class="form-control"
+                           id="year1"/>
+                </div>
+                <div class="text-danger">
+                    <p th:if="${#fields.hasErrors('year1')}" th:errorclass="error" th:errors="*{year1}"/> </p>
+                </div>
+            </div>
+
+            <div class="brand-input">
+                <label for="price">Price: </label>
+                <div>
+                    <input type="text" th:field="*{price}" name="price" placeholder="Price" class="form-control"
+                           id="price"/>
+                </div>
+                <div class="text-danger">
+                    <p th:if="${#fields.hasErrors('price')}" th:errorclass="error" th:errors="*{price}"/> </p>
+                </div>
+            </div>
+            <div class="button-send">
+                <button class="btn btn-primary">Submit Your Clothing</button>
+            </div>
+        </div>
+    </form>
+
+    <a href="/management">
+        <div class="button-item">
+            <button class="btn btn-primary">Management page</button>
+        </div>
+    </a>
+    <a href="/addItem">
+        <div class="button-item">
+            <button class="btn btn-primary">Item page</button>
+        </div>
+    </a>
+    <form method="post" th:action="@{/form/deleteAllClothings}">
+        <button class="btn btn-danger mt-5"> Delete All </button>
+    </form>
+</div>
+</body>
+</html>
