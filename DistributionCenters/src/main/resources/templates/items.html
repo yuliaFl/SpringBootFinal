@@ -5,30 +5,31 @@
     <title>Items</title>
 </head>
 <body>
-<h1>Items</h1>
+<h1>Distribution Centers and Items</h1>
 <table>
     <thead>
     <tr>
+        <th>Distribution Center</th>
         <th>ID</th>
         <th>Name</th>
         <th>Year</th>
         <th>Price</th>
-        <th>Brand</th>
-        <th>Quantity</th>
     </tr>
     </thead>
     <tbody>
-    <tr th:each="item : ${items}">
-        <td th:text="${item.id}"></td>
-        <td th:text="${item.name}"></td>
-        <td th:text="${item.year1}"></td>
-        <td th:text="${item.price}"></td>
-        <td th:text="${item.brandFrom}"></td>
-        <td th:text="${item.quantity}"></td>
-    </tr>
+    <th:block th:each="distCenter : ${distCenters}">
+        <th:block th:each="item, iterStat : ${distCenter.items}">
+            <tr>
+                <td th:if="${iterStat.first}" th:rowspan="${#lists.size(distCenter.items)}" th:text="${distCenter.name}"></td>
+                <td th:text="${item.id}"></td>
+                <td th:text="${item.name}"></td>
+                <td th:text="${item.year}"></td>
+                <td th:text="${item.price}"></td>
+            </tr>
+        </th:block>
+    </th:block>
     </tbody>
 </table>
 <a th:href="@{/logout}">Logout</a>
 </body>
 </html>
-

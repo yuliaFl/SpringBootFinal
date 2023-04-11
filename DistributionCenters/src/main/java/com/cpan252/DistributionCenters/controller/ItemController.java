@@ -3,27 +3,37 @@ package com.cpan252.DistributionCenters.controller;
 import com.cpan252.DistributionCenters.model.DistributionCenter;
 import com.cpan252.DistributionCenters.model.Item;
 import com.cpan252.DistributionCenters.repository.*;
-import com.cpan252.DistributionCenters.repository.ItemRepository;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import java.util.List;
+import java.util.stream.Collectors;
+import java.util.stream.StreamSupport;
 
 @Controller
 @RequestMapping("/items")
 public class ItemController {
     private final ItemRepository itemRepository;
 
-    public ItemController(ItemRepository itemRepository) {
-        this.itemRepository = itemRepository;
-    }
+    @Autowired
+    private DistributionCentreRepository distributionCenterRepository;
 
-    @GetMapping
-    public String getAllItems(Model model) {
+    @GetMapping // Change this line
+    public String showDistributionCentersAndItems(Model model) {
+        List<DistributionCenter> distCenters = StreamSupport.stream(distributionCenterRepository.findAll().spliterator(), false)
+                .collect(Collectors.toList());
+        model.addAttribute("distCenters", distCenters);
+
         List<Item> items = (List<Item>) itemRepository.findAll();
         model.addAttribute("items", items);
+
         return "items";
+    }
+
+    public ItemController(ItemRepository itemRepository) {
+        this.itemRepository = itemRepository;
     }
 }

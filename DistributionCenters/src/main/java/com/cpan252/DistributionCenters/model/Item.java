@@ -14,7 +14,7 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 @NoArgsConstructor
 @Entity
-@Table(name = "Clothing")
+@Table(name = "ITEM")
 public class Item {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -22,12 +22,15 @@ public class Item {
     @NotBlank
     private String name;
     @Min(2021)
-    private int year1;
+    @Column(name = "production_year")
+    private int year;
     @DecimalMin(value = "1000.0")
     private double price;
+    @Column(name = "brand_from")
     private Brand brandFrom;
     @NotNull
     @Min(0)
+    @Column(name = "items_available")
     private int itemsAvailable ;
 
     public enum Brand {
@@ -41,7 +44,7 @@ public class Item {
 
     public Item(String name, int year, double price, Brand brandFrom, int itemsAvailable , DistributionCenter distributionCenter) {
         this.name = name;
-        this.year1 = year;
+        this.year = year;
         this.price = price;
         this.brandFrom = brandFrom;
         this.itemsAvailable  = itemsAvailable ;
