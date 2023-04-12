@@ -10,36 +10,39 @@
 </head>
 <body>
 <div th:replace="fragments :: navbar"></div>
-    <h1>Add item</h1>
-    <form method="post" th:object="${item}">
-            <h3>Choose clothing:</h3>
-                <label for="name">Name: </label>
-                    <input type="text" th:field="*{name}" name="name" placeholder="Name" class="form-control"
-                           id="name"/>
+<h1>Add item</h1>
+<form method="post" th:object="${item}">
+    <h3>Choose clothing:</h3>
+    <label for="name">Name: </label>
+    <input type="text" th:field="*{name}" name="name" placeholder="Name" class="form-control"
+           id="name"/>
 
-                <h3>Pick a brand:</h3>
-                <div th:each="brand : ${brands}">
-                    <input type="checkbox" th:field="*{brandFrom}" th:value="${brand}"/>
-                    <span th:text="${brand}">Brand</span><br/>
-                </div>
+    <h3>Pick a brand:</h3>
+    <div th:each="brand : ${brands}">
+        <input type="checkbox" th:field="*{brandFrom}" th:value="${brand}"/>
+        <span th:text="${brand}">Brand</span><br/>
+    </div>
 
-                <label for="year">Year: </label>
-                    <input type="text" th:field="*{year}" name="year" placeholder="Year" class="form-control"
-                           id="year"/>
-                <div class="text-danger">
-                    <p th:if="${#fields.hasErrors('year')}" th:errorclass="error" th:errors="*{year}"/> </p>
-                </div>
+    <label for="year">Year: </label>
+    <input type="text" th:field="*{year}" name="year" placeholder="Year" class="form-control"
+           id="year"/>
+    <div class="text-danger">
+        <p th:if="${#fields.hasErrors('year')}" th:errorclass="error" th:errors="*{year}"/> </p>
+    </div>
 
-                <label for="price">Price: </label>
-                    <input type="text" th:field="*{price}" name="price" placeholder="Price" class="form-control"
-                           id="price"/>
-                <div class="text-danger">
-                    <p th:if="${#fields.hasErrors('price')}" th:errorclass="error" th:errors="*{price}"/> </p>
-                </div>
-            </div>
-            <div class="button-send">
-                <button class="btn btn-primary">Submit Your Clothing</button>
-            </div>
-    </form>
+    <label for="price">Price: </label>
+    <input type="text" th:field="*{price}" name="price" placeholder="Price" class="form-control"
+           id="price"/>
+    <div class="text-danger">
+        <p th:if="${#fields.hasErrors('price')}" th:errorclass="error" th:errors="*{price}"/> </p>
+    </div>
+    <label for="CenterName">DistributionCenter: </label>
+    <input type="text" th:field="*{name}" name="name" placeholder="name" class="form-control"
+           id="CenterName"/>
+    </div>
+    <div class="button-send">
+        <button class="btn btn-primary">Submit Your Clothing</button>
+    </div>
+</form>
 </body>
 </html>

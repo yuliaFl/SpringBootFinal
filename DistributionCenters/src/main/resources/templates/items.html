@@ -22,7 +22,8 @@
     <th:block th:each="distCenter : ${distCenters}">
         <th:block th:each="item, iterStat : ${distCenter.items}">
             <tr>
-                <td th:if="${iterStat.first}" th:rowspan="${#lists.size(distCenter.items)}" th:text="${distCenter.name}"></td>
+                <td th:if="${iterStat.first}" th:rowspan="${#lists.size(distCenter.items)}"
+                    th:text="${distCenter.name}"></td>
                 <td th:text="${item.id}"></td>
                 <td th:text="${item.name}"></td>
                 <td th:text="${item.year}"></td>
@@ -34,15 +35,11 @@
 </table>
 <a th:href="@{/add}">Add item</a>
 </br>
-<form class="mt-3" method="post" th:object="${itemDTO}">
-            <label for="itemName">Enter name:</label>
-        <input
-                type="text"
-                id="itemName"
-                th:field="*{name}"/>
-        <button class="btn btn-primary mt-5">
-            Search Brand
-        </button>
-    </form>
+
+<form method="post" th:action="@{/items/{itemId}}">
+    <label for="item">Item:</label>
+    <input type="text" id="item" name="item" th:field="*{name}" required>
+    <button class="btn btn-danger mt-5">Delete Item</button>
+</form>
 </body>
 </html>
