@@ -39,12 +39,15 @@ public class AddController {
                 .build();
     }
     @PostMapping
-    public String processClothingAddition(@Valid Item item, BindingResult result) {
+    public String processItemAddition(@Valid Item item, BindingResult result) {
         if (result.hasErrors()) {
             return "add";
         }
+        System.out.println("hi");
         log.info("Processing item: {}", item);
+        System.out.println("hi2");
         itemRepository.save(item);
+        System.out.println("clothing saved");
         return "redirect:/items";
     }
 

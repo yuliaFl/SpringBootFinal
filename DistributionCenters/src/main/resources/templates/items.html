@@ -34,23 +34,15 @@
 </br>
 <a th:href="@{/logout}">Logout</a>
 </br>
-<div>
     <form class="mt-3" method="post" th:object="${itemDTO}">
-        <div class="mb-3">
-            <label for="itemBrand">Enter brand:</label>
-            <input
-                    type="text"
-                    />
             <label for="itemName">Enter name:</label>
-            <input
-                    type="text"
-            />
-
-        </div>
+        <input
+                type="text"
+                id="itemName"
+                th:field="*{name}"/>
         <button class="btn btn-primary mt-5">
             Search Brand
         </button>
     </form>
-</div>
 </body>
 </html>

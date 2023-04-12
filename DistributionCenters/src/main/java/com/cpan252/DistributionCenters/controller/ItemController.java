@@ -2,6 +2,7 @@ package com.cpan252.DistributionCenters.controller;
 
 import com.cpan252.DistributionCenters.model.DistributionCenter;
 import com.cpan252.DistributionCenters.model.Item;
+import com.cpan252.DistributionCenters.model.Item.Brand;
 import com.cpan252.DistributionCenters.model.ItemDTO;
 import com.cpan252.DistributionCenters.repository.*;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -12,6 +13,8 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 import java.util.List;
 import java.util.stream.Collectors;
 import java.util.stream.StreamSupport;
@@ -45,12 +48,10 @@ public class ItemController {
         model.addAttribute("ItemDTO", new ItemDTO());
     }
 
-    /* not sure how to search for brand and name at the same time
+    /*
     @PostMapping
-    public String searchItem(@ModelAttribute ItemDTO itemDTO, Model model) {
-        Item.Brand brand = itemRepository.findByName(itemDTO.getBrandName());
-        List<Item> items = itemRepository.findByBrandAndName(brand, itemDTO.getName());
-        model.addAttribute("items", items);
+    public String searchItemByName(@ModelAttribute ItemDTO itemDTO, Model model) {
+        model.addAttribute("items", itemRepository.findByBrandFromAndName(Item.Brand.valueOf(brand), itemDTO.getName()));
         return "items";
     }
      */
