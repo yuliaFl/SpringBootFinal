@@ -25,7 +25,7 @@ public class Cpan252Application {
             DistributionCenter dc3 = new DistributionCenter("DC3", 0, 30, 20);
             DistributionCenter dc4 = new DistributionCenter("DC4", 0, 60, -80);
             DistributionCenter wh = new DistributionCenter("WH", 0, 50, 50);
-            dc4.setIsWarehouse(true);
+            wh.setIsWarehouse(true);
 
             // Save distribution centers
             distributionCentreRepository.save(dc1);

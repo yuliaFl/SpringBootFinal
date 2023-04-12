@@ -1,0 +1,18 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+<head>
+    <meta charset="UTF-8">
+    <title>Common Fragments</title>
+</head>
+<body>
+<div th:fragment="navbar">
+    <nav>
+        <a th:href="@{/}" sec:authorize="isAnonymous()">Login</a>
+        <a th:href="@{/register}" sec:authorize="isAnonymous()">Register</a>
+        <a th:href="@{/logout-page}" sec:authorize="isAuthenticated()">Logout</a>
+        <a th:href="@{/items}" sec:authorize="isAuthenticated()">Items</a>
+        <a th:href="@{/admin/distribution-center}" sec:authorize="isAuthenticated()">Distribution Center</a>
+    </nav>
+</div>
+</body>
+</html>

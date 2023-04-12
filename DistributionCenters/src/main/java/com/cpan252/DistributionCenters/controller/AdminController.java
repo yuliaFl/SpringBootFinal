@@ -10,12 +10,11 @@ import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
+import java.io.PrintWriter;
+import java.io.StringWriter;
 import java.util.List;
 
 @Controller
@@ -36,6 +35,11 @@ public class AdminController {
         return "admin-distribution-center";
     }
 
+    @ModelAttribute("warehouseItems")
+    public List<Item> getWarehouseItems() {
+        DistributionCenter warehouse = centerRepository.findByIsWarehouseTrue();
+        return itemRepository.findByDistributionCenter(warehouse);
+    }
 
     private double calculateDistance(double lat1, double lon1, double lat2, double lon2) {
         double earthRadius = 6371.01; // Kilometers
@@ -57,6 +61,7 @@ public class AdminController {
         System.out.println("Request item started");
         try {
             List<Item> items = itemRepository.findByBrandFromAndName(Item.Brand.valueOf(brand.toUpperCase()), name);
+            System.out.println("Items found: " + items.size()); // Add this line
             if (items.isEmpty()) {
                 redirectAttributes.addFlashAttribute("errorMessage", "Stock can't be replenished");
                 return "redirect:/error";
@@ -82,6 +87,8 @@ public class AdminController {
                 }
             }
 
+            System.out.println("Closest center: " + closestCenter); // Add this line
+
             if (closestCenter != null) {
                 System.out.println("Closest center is not null");
                 final Long closestCenterId = closestCenter.getId();
@@ -90,6 +97,8 @@ public class AdminController {
                         .filter(item -> item.getDistributionCenter().getId() == closestCenterId)
                         .findFirst()
                         .orElse(null);
+
+                System.out.println("Item to replenish: " + itemToReplenish); // Add this line
 
                 if (itemToReplenish != null) {
                     System.out.println("Item to replenish found");
@@ -108,9 +117,14 @@ public class AdminController {
             redirectAttributes.addFlashAttribute("errorMessage", "Stock can't be replenished");
             return "redirect:/error";
         } catch (Exception e) {
+            System.out.println("Error occurred: " + e.getMessage()); // Log the error message
+            StringWriter sw = new StringWriter();
+            e.printStackTrace(new PrintWriter(sw)); // Print the stack trace to a StringWriter
+            String stackTrace = sw.toString(); // Get the stack trace as a String
+
             redirectAttributes.addFlashAttribute("errorMessage", "System error occurred: " + e.getMessage());
+            redirectAttributes.addFlashAttribute("stackTrace", stackTrace); // Pass the stack trace to the error page
             return "redirect:/error";
         }
-    }
 
-}
+}}

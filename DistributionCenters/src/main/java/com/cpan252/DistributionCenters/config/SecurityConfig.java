@@ -42,7 +42,8 @@ public class SecurityConfig {
                 .requestMatchers(toH2Console()).permitAll()
                 .requestMatchers("/add", "/items")
                 .hasRole("USER")
-                .requestMatchers("/admin/**").hasRole("ADMIN") // Add this line
+                .requestMatchers("/request-item").hasRole("ADMIN") // Add this line
+                .requestMatchers("/admin/**").hasRole("ADMIN")
                 .requestMatchers("/error").permitAll()
                 .anyRequest().permitAll()
                 .and()
@@ -51,7 +52,9 @@ public class SecurityConfig {
                 .defaultSuccessUrl("/items", true)
                 .and()
                 .logout()
+                .logoutUrl("/logout")
                 .logoutSuccessUrl("/")
+
 
                 // Make H2-Console non-secured; for debug purposes
                 .and()
