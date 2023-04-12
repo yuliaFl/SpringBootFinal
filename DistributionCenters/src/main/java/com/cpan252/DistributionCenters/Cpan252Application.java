@@ -19,18 +19,21 @@ public class Cpan252Application {
     @Bean
     public CommandLineRunner initData(DistributionCentreRepository distributionCentreRepository, ItemRepository itemRepository) {
         return (args) -> {
-            // Create 3 distribution centers
+            // Create 4 distribution centers
             DistributionCenter dc1 = new DistributionCenter("DC1", 0, BigDecimal.valueOf(40.7128), BigDecimal.valueOf(-74.0060));
             DistributionCenter dc2 = new DistributionCenter("DC2", 0, BigDecimal.valueOf(34.0522), BigDecimal.valueOf(-118.2437));
             DistributionCenter dc3 = new DistributionCenter("DC3", 0, BigDecimal.valueOf(37.7749), BigDecimal.valueOf(-122.4194));
+            DistributionCenter dc4 = new DistributionCenter("DC4", 0, BigDecimal.valueOf(57.7447), BigDecimal.valueOf(-82.4914));
 
             // Save distribution centers
             distributionCentreRepository.save(dc1);
             distributionCentreRepository.save(dc2);
             distributionCentreRepository.save(dc3);
+            distributionCentreRepository.save(dc4);
             System.out.println(dc1);
             System.out.println(dc2);
             System.out.println(dc3);
+            System.out.println(dc4);
 
             // Create 3 items for each distribution center
             Item item1 = new Item("Item1", 2023, 1000.0, Item.Brand.GUCCI, 3, dc1);
@@ -45,6 +48,10 @@ public class Cpan252Application {
             Item item8 = new Item("Item8", 2023, 1700.0, Item.Brand.BALENCIAGA, 3, dc3);
             Item item9 = new Item("Item9", 2023, 1800.0, Item.Brand.DIOR, 3, dc3);
 
+            Item item10 = new Item("Item10", 2023, 1900.0, Item.Brand.GUCCI, 3, dc4);
+            Item item11 = new Item("Item11", 2023, 1100.0, Item.Brand.BALENCIAGA, 3, dc4);
+            Item item12 = new Item("Item12", 2023, 1200.0, Item.Brand.DIOR, 3, dc4);
+
             // Save items
             itemRepository.save(item1);
             itemRepository.save(item2);
@@ -55,9 +62,13 @@ public class Cpan252Application {
             itemRepository.save(item7);
             itemRepository.save(item8);
             itemRepository.save(item9);
+            itemRepository.save(item10);
+            itemRepository.save(item11);
+            itemRepository.save(item12);
             System.out.println(item3);
             System.out.println(item6);
             System.out.println(item9);
+            System.out.println(item12);
         };
     }
 }

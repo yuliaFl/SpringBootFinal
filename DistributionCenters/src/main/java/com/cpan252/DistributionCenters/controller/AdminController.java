@@ -3,6 +3,8 @@ package com.cpan252.DistributionCenters.controller;
 import com.cpan252.DistributionCenters.model.Item;
 import com.cpan252.DistributionCenters.repository.DistributionCentreRepository;
 import com.cpan252.DistributionCenters.repository.ItemRepository;
+import org.springframework.security.access.prepost.PreAuthorize;
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -24,6 +26,7 @@ public class AdminController {
     }
 
     @GetMapping("/distribution-center")
+    //@PreAuthorize("hasRole('ROLE_ADMIN')")
     public String showAdminDistributionCenterPage() {
         return "admin-distribution-center";
     }
