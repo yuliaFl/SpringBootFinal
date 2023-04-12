@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Admin - Distribution Center</title>
+</head>
+<body>
+<h1>Request Item</h1>
+<form action="/admin/request-item" method="post" th:object="${itemDTO}">
+    <div>
+        <label for="name">Name:</label>
+        <input type="text" id="name" name="name" th:field="*{name}" required>
+    </div>
+    <div>
+        <label for="brand">Brand:</label>
+        <select id="brand" name="brand" th:field="*{brand}" required>
+            <option value="" disabled>Select Brand</option>
+            <option th:each="brand : ${T(com.cpan252.DistributionCenters.model.ItemDTO.Brand).values()}"
+                    th:value="${brand}" th:text="${brand}"></option>
+        </select>
+    </div>
+    <button type="submit">Request Item
+    </button>
+</form>
+</body>
+</html>
