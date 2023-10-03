@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Add item</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.1/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+</head>
+<body>
+<div th:replace="fragments :: navbar"></div>
+    <h1>Add item</h1>
+    <form method="post" th:object="${item}">
+            <h3>Choose clothing:</h3>
+                <label for="name">Name: </label>
+                    <input type="text" th:field="*{name}" name="name" placeholder="Name" class="form-control"
+                           id="name"/>
+
+                <h3>Pick a brand:</h3>
+                <div th:each="brand : ${brands}">
+                    <input type="checkbox" th:field="*{brandFrom}" th:value="${brand}"/>
+                    <span th:text="${brand}">Brand</span><br/>
+                </div>
+
+                <label for="year">Year: </label>
+                    <input type="text" th:field="*{year}" name="year" placeholder="Year" class="form-control"
+                           id="year"/>
+                <div class="text-danger">
+                    <p th:if="${#fields.hasErrors('year')}" th:errorclass="error" th:errors="*{year}"/> </p>
+                </div>
+
+                <label for="price">Price: </label>
+                    <input type="text" th:field="*{price}" name="price" placeholder="Price" class="form-control"
+                           id="price"/>
+                <div class="text-danger">
+                    <p th:if="${#fields.hasErrors('price')}" th:errorclass="error" th:errors="*{price}"/> </p>
+                </div>
+            </div>
+            <div class="button-send">
+                <button class="btn btn-primary">Submit Your Clothing</button>
+            </div>
+    </form>
+</body>
+</html>

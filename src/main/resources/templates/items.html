@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Items</title>
+</head>
+<body>
+<div th:replace="~{fragments :: navbar}"></div>
+
+<h1>Distribution Centers and Items</h1>
+<table>
+    <thead>
+    <tr>
+        <th>Distribution Center</th>
+        <th>ID</th>
+        <th>Name</th>
+        <th>Year</th>
+        <th>Price</th>
+        <th>Actions</th>
+    </tr>
+    </thead>
+    <tbody>
+    <th:block th:each="distCenter : ${distCenters}">
+        <th:block th:each="item, iterStat : ${distCenter.items}">
+            <tr>
+                <td th:if="${iterStat.first}" th:rowspan="${#lists.size(distCenter.items)}" th:text="${distCenter.name}"></td>
+                <td th:text="${item.id}"></td>
+                <td th:text="${item.name}"></td>
+                <td th:text="${item.year}"></td>
+                <td th:text="${item.price}"></td>
+                <td>
+                    <a th:href="@{/items/{distCenterId}/add-item(distCenterId=${distCenter.id})}">Add Item</a>
+                </td>
+                <td>
+                    <form th:action="@{/items/{distCenterId}/delete-item/{itemId}(distCenterId=${distCenter.id}, itemId=${item.id})}" method="post">
+                        <input type="submit" value="Delete Item">
+                    </form>
+                </td>
+            </tr>
+        </th:block>
+    </th:block>
+    </tbody>
+</table>
+</body>
+</html>
